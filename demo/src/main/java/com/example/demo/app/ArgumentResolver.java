@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.app;
 
 import java.io.InputStream;
 

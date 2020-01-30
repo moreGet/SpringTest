@@ -1,9 +1,12 @@
-package com.example.demo;
+package com.example.demo.app;
 
 import java.io.InputStream;
 import java.util.Scanner;
 
+import org.springframework.stereotype.Component;
+
 // Resolver : 결의, 결심, 결단
+@Component
 public class ScannerArgumentResolver implements ArgumentResolver{
 	
 	@Override

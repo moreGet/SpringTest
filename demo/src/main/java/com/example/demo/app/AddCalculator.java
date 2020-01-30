@@ -1,5 +1,8 @@
-package com.example.demo;
+package com.example.demo.app;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class AddCalculator implements Calculator {
 
 	public AddCalculator() {}

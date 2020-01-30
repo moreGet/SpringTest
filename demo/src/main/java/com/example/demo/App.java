@@ -1,32 +1,36 @@
 package com.example.demo;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.Import;
+
+import com.example.demo.app.Argument;
+import com.example.demo.app.ArgumentResolver;
+import com.example.demo.app.Calculator;
 
 @SpringBootApplication
-@Import(AppConfig.class) // javaConfig흫 읽어들이기 위해 @Cunfiguration 어노테이션이 붙은 클래스를 지정
-public class App {
-	public static void main(String[] args) {
+public class App implements CommandLineRunner{ // 앞서 구현한 FrontEnd 클래스의 Run메소드와 같은 역할
+	
+	@Autowired // 자동 오토 와이어링 으로 인해 자동으로 객체를 찾아주는 역할을 하라 하는 어노테이션
+	Calculator calculator;
+	@Autowired
+	ArgumentResolver argResolver;
+	
+	@Override
+	public void run(String... args) throws Exception {
+		System.out.println("Enter 2 number like 'a b' : ");
 		
-		// try() 안에 정의하는 방법을 try-with-resources이다. 처리가 끝나면 
-		// 자동으로 close() 메소드가 호출되어  DI컨테이너가 소멸하고 어플리케이션을 종료합니다.
-		try(ConfigurableApplicationContext context = 
-				SpringApplication.run(App.class, args)) {
-			
-			// SpringApplication.run으로 @EnableAutoConfiguration을 붙힌 클래스를 지정
-			// 이 메소드의 반환값은 DI컨테이너의 본체인 타입으로 반환 받습니다.
-			System.out.println("Enter 2 numbers like 'a b' : ");
-			ArgumentResolver ar = context.getBean(ArgumentResolver.class);
-			
-			Argument argument = ar.resolve(System.in);
-			Calculator calculator = context.getBean(Calculator.class);
-			
-			int result = calculator.calc(argument.getA(), argument.getB());
-			System.out.println("result = " + result);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		// 오토 와이어링 으로 인한 자동객체 대입
+		Argument argument = argResolver.resolve(System.in);
+		
+		// 오토 와이어링...
+		// Argument 에서 구현한 InputStream 으로 받은 키보드 인자값을 계산;
+		int result = calculator.calc(argument.getA(), argument.getB());
+		System.out.println("result : " + result);
+	}
+	
+	public static void main(String[] args) {
+		SpringApplication.run(App.class, args);
 	}
 }
