@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	
+	<!-- 스프링 부트에 이미 마련되어 있는 기본 설정을 포함 -->
+	<include resource="org/springframework/boot/logging/logback/base.xml"/>
+	
+	<!-- Log4JDBC는 다양한 로그를 출력하는데, 여기서는 SQL로그만 출력 그 외의 내용은 OFF설정 -->
+	<logger name="jdbc" level="OFF"/>
+	
+	<!-- SQL로그는 디버그 레벨로 출력되므로 DEBUG로 설정 합니다. -->
+	<!-- jdbc.sqltiming 로그는 "SQL문 + 실행 시간" 형식으로 로그를 출력 합니다. -->
+	<logger name="jdbc.sqltiming" level="DEBUG"/>
+
+</configuration>

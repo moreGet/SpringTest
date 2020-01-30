@@ -19,18 +19,38 @@
 	</properties>
 
 	<dependencies>
+		<!-- 밑의 의존관계를 추가하면 스프링 JDBC로 DB에 접속하는 기능에 필요한 lib가 추가 됩니다. -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
 		</dependency>
+		
+		<!-- 이번 예제 에서는 h2 DB를 사용 합니다. -->
 		<dependency>
 		    <groupId>com.h2database</groupId>
 		    <artifactId>h2</artifactId>
+		    <scope>runtime</scope>
 		</dependency>
 		
+		<!-- 스프링부트 웹 관련 의존관계 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<!-- lombok 의존 관계 -->
+		<dependency>
+		    <groupId>org.projectlombok</groupId>
+		    <artifactId>lombok</artifactId>
+		    <version>1.18.10</version>
+		    <scope>provided</scope>
+  		</dependency>	
+
+		<!-- Log4JDBC 의존 관계 -->
+		<dependency>
+			<groupId>org.lazyluke</groupId>
+			<artifactId>log4jdbc-remix</artifactId>
+			<version>0.2.7</version>
 		</dependency>
 
 		<dependency>
