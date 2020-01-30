@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Primary;
 
 import net.sf.log4jdbc.Log4jdbcProxyDataSource;
 
-//@Configuration
+@Configuration
 public class AppConfig {
 	
 	@Autowired
