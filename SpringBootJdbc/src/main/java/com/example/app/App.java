@@ -20,6 +20,7 @@ public class App implements CommandLineRunner{
 		System.out.println(created + " is created!");
 		
 		// 데이터 표시
+		// forEach
 		customerRepository.findAll().forEach(System.out::println);
 	}
 	

@@ -2,12 +2,16 @@ package com.example.app.repository;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +26,22 @@ import com.example.app.domain.Customer;
 public class CustomerRepository {
 	@Autowired
 	NamedParameterJdbcTemplate jdbcTemplate;
+	SimpleJdbcInsert insert;
+	
+	// 클래스 객체가 생성 될 떄, 아래 어노테이션을 명시한 
+	// 메소드는 별도로 우선 초기화 한다.
+	// 이 어노테이션은 WAS에 띄어질떄 init가 객체생성 된다.
+	@PostConstruct
+	public void init() {
+		insert = new SimpleJdbcInsert(
+				// SompleJdbcInsert에 JdbcTemplate을 설정해야 하므로 NamedParameterJdbcTemplate에 속한
+				// JdbcTemplate 객체를 받아옵니다.
+				(JdbcTemplate) jdbcTemplate.getJdbcOperations())
+				// SimpleJdbcInsert는 INSERT SQL을 자동으로 생성하므로 테이블 이름을 명시적으로 지정.
+				.withTableName("customers")
+				// 자동으로 번호가 매겨지는 기본 키 칼럼명을 지정합니다.
+				.usingGeneratedKeyColumns("id");
+	}
 	
 	// 템플릿을 이용하여 query() 메소드의 람다식을 이용하여 SQL 실행 결과를 자바 객체 리스트 형태로 가져옵니다.
 	private static final RowMapper<Customer> customerRowMapper = (rs, i) -> {
@@ -54,9 +74,6 @@ public class CustomerRepository {
 	
 	// Update Block
 	public Customer save(Customer customer) {
-		String insert = "INSERT INTO customers(first_name, last_name) ";
-		String values = "values(:firstName, :lastName)";
-		
 		String update = "UPDATE customer SET first_name=:firstName, last_name=:lastName WHERE id=:id";
 		
 		/*
@@ -69,7 +86,9 @@ public class CustomerRepository {
 		// 값을 매핑한 SqlParameterSource가 자동으로 작성 됩니다.
 		SqlParameterSource param = new BeanPropertySqlParameterSource(customer);
 		if (customer.getId() == null) {
-			jdbcTemplate.update(insert+values, param);
+			// executeAndReturnKey() 메소드를 호출하면 SQL을 실행하고 자동으로 번호가 매겨진 ID가 반환됩니다.
+			Number key = insert.executeAndReturnKey(param);
+			customer.setId(key.intValue());
 		} else {
 			jdbcTemplate.update(update, param);
 		}
