@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<!-- Thymeleaf의 th:*** 속성을 사용하기 위한 이름 공간을 지정합니다. -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="EUC-KR">
+<title>고객 목록</title>
+</head>
+<body>
+	<table class="table table-striped table-bordered table-condensed">
+		<!-- th:each 속성을 사용해서 List<Customer>의 내용을 한 개씩 꺼냅니다 -->
+		<!-- th:each="(루프 구간 안에서 사용하는 속성 이름) : ${(루프 대상 객체의 속성 이름)}"을 입력합니다. -->
+		<tr th:each="customer : ${customers}">
+			<!-- th:text 속성 값을 사용하여 HTML 태그 안에 포함된 문자를 치환할 수 있습니다. -->
+			<!-- 서버 쪽에서 렌더링 할때 customer.id 값으로 치환 됩니다. -->
+			<!-- 치환할 값은 기본적으로 HTML 이스케이프 크로스 사이트 스크립팅(XSS) 공격을 방지할 수 있습니다. -->
+			<td th:text="${customer.id}"> 100 </td>
+			<td th:text="${customer.lastName}"> 홍 </td>
+			<td th:text="${customer.firstName}"> 길동 </td>
+			<td>
+				<!-- form 태그의 action 속성 내용을 th:action 속성 값으로 치환할 수 있습니다. -->
+				<!-- @(***) 형식으로 지정하여 컨텍스트 경로의 상대 경로를 절대 경로로 치환할 수 있습니다. -->
+				<form th:action="@{/customers/edit}" method="get">
+					<input type = "submit" name = "form" value="편집" />
+					<!-- input 태그의 value 속성 내용을 th:value 속성 값으로 치환할 수 있습니다. -->
+					<input type = "hidden" name = "id" th:value="${customer.id}" />
+				</form>
+			</td>
+			<td>
+				<form th:action="@{/customers/delete}" method="post">
+					<input type="submit" value="삭제" />
+					<input type="hidden" name="id" th:value="${customer.id}" />
+				</form>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>

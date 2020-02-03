@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>SpringBootJPA</artifactId>
+	<artifactId>SpringBootJPA-1</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>SpringBootJPA</name>
+	<name>SpringBootJPA-1</name>
 	<description>Use the jdbc with Spring Boot</description>
 
 	<properties>
@@ -21,34 +21,36 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		
-		<!-- h2 DB를 사용 합니다. -->
 		<dependency>
-		    <groupId>com.h2database</groupId>
-		    <artifactId>h2</artifactId>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
 		</dependency>
 		
-		<!-- lombok 의존 관계 -->
 		<dependency>
-		    <groupId>org.projectlombok</groupId>
-		    <artifactId>lombok</artifactId>
-		    <version>1.18.10</version>
-		    <scope>provided</scope>
-  		</dependency>	
-  		
-		<!-- Log4JDBC 의존 관계 -->
-		<dependency>
-		  <groupId>org.bgee.log4jdbc-log4j2</groupId>
-		  <artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
-		  <version>1.16</version>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
 		</dependency>
-  		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -59,6 +61,13 @@
 					<artifactId>junit-vintage-engine</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+		
+		<!-- Log4JDBC 의존 관계 -->
+		<dependency>
+		  <groupId>org.bgee.log4jdbc-log4j2</groupId>
+		  <artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
+		  <version>1.16</version>
 		</dependency>
 	</dependencies>
 

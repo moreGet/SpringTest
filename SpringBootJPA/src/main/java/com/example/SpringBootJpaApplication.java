@@ -1,4 +1,4 @@
-package com.example.app;
+package com.example;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -9,32 +9,27 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import com.example.app.domain.Customer;
-import com.example.app.repository.CustomerRepository;
+import com.example.app.service.CustomerService;
 
-@SpringBootApplication
+@SpringBootApplication // 여기에 CompoScan 들어 있음.
 public class SpringBootJpaApplication implements CommandLineRunner{
 	
 	@Autowired
-	CustomerRepository customerRepository;
+	CustomerService cs;
 	
 	@Override
 	public void run(String... args) throws Exception {
 		int idx = 0;
 		while(idx < 10) {
-			customerRepository.save(new Customer(null, idx, "Phone"));
+			cs.create(new Customer(null, idx, "Phone"));
 			idx++;
 		}
 		
-		// 0페이지 부터 시작, 페이지 당 데이터 갯수
+		// 페이지 반환
 		Pageable pageable = PageRequest.of(0, 5);
-		Page<Customer> page = customerRepository.findAllOrderByName(pageable);
-		
-		System.out.println("페이지 당 데이터 수 : " + page.getSize());
-		System.out.println("현재 페이지 : " + page.getNumber());
-		System.out.println("전체 페이지 수 : " + page.getTotalPages());
-		System.out.println("전체 데이터 수 : " + page.getTotalElements());
-		
-		page.getContent().forEach(System.out::println);
+		Page<Customer> page = cs.findAll(pageable);
+		System.out.println("총 페이지 수 : " + page.getTotalPages());
+		System.out.println("총 데이터 수 : " + page.getTotalElements());
 	}
 	
 	public static void main(String[] args) {
