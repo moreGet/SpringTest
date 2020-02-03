@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "customers")
 
 // class파일을 생성할때 각 필드의 setter/getter, toString, equals, hashCode 메소드가
-// 생성되므로 소스코드가 간결해진다. 아래 필드는 final형태라 setter/getter가 생성되지 않는다.
+// 생성되므로스코드가 간결해진다. 아래 필드는 final형태라 setter/getter가 생성되지 않는다.
 @Data
 
 // JPA 명세에 따르면 엔티티 클래스에는 인자를 받지 않는 기본 생성자를 만들어야 합니다.
@@ -36,7 +36,7 @@ public class Customer {
 	// 필드에 이 어노테이션을 붙여서 DB의 대응하는 컬럼의 이름이나 제약 조건을 설정합니다.
 	// 여기서는 NotNull 제약조건을 설정 합니다.
 	@Column(nullable = false)
-	private String firstName;
+	private Integer firstName;
 	@Column(nullable = false)
 	private String lastName;
 }

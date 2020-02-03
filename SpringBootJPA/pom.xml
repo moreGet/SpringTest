@@ -28,6 +28,12 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		
+		<!-- h2 DB를 사용 합니다. -->
+		<dependency>
+		    <groupId>com.h2database</groupId>
+		    <artifactId>h2</artifactId>
+		</dependency>
+		
 		<!-- lombok 의존 관계 -->
 		<dependency>
 		    <groupId>org.projectlombok</groupId>
