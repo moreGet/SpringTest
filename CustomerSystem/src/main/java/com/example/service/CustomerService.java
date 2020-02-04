@@ -19,11 +19,7 @@ public class CustomerService {
 	@Autowired
 	CustomerRepository customerRepository;
 	
-//	public Page<Customer> findAll(Pageable pageable) {
-//		return customerRepository.findAllOrderByName(pageable);
-//	}
-
-	public List<Customer> findAllList() {
+	public List<Customer> findAll() {
 		return customerRepository.findAllOrderByNameList();
 	}
 	
