@@ -64,6 +64,12 @@
 			</exclusions>
 		</dependency>
 		
+		<!-- 스프링 시큐리티 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		
 		<!-- Log4JDBC 의존 관계 -->
 		<dependency>
 		  <groupId>org.bgee.log4jdbc-log4j2</groupId>
