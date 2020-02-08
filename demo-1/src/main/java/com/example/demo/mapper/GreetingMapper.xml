@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.GreetingMapper">
+	<select id="getGreeting" resultType="com.example.demo.dto.Greeting">
+		SELECT 
+			idx AS idx, 
+			id AS id, 
+			password AS password, 
+			email AS email, 
+			status AS status
+		FROM exam.greeting
+		WHERE status = 0 
+		ORDER BY idx DESC
+	</select>
+	
+	<select id="getVersion" resultType="com.example.demo.dto.Version" parameterType="java.lang.String">
+		SELECT version_idx, version, api_id, reg_dt, etc
+		FROM exam.version
+		WHERE 
+			api_id= #{appName}
+		ORDER BY VERSION DESC
+		LIMIT 1
+	</select>
+
+</mapper>

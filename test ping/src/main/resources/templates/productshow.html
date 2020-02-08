@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head lang="utf-8">
+		<title>String Boot Example</title>
+	</head>
+	<body>
+		<div class="container">
+			<h2>Product Details</h2>
+			<div>
+				 <form th:object="product">
+					<div>
+						<label>Product Id:</label>
+=							<p th:field="*{productId}">Product Id</p>
+					</div> 
+					<div>
+						<label>Name: </label>
+						<div>
+							<p th:field="*{name}">name</p>
+						</div>
+					</div>
+					<div>
+						<label>Price: </label>
+						<div>
+							<p th:field="*{price}">Price</p>
+						</div>
+					</div> 
+				</form> 
+			</div>
+		</div>
+	</body>
+</html>

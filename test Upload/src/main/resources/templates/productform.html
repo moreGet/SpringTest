@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head lang="utf-8">
+		<title>String Boot Example</title>
+	</head>
+	<body>
+		<div class="container">
+			<h2>Product Details</h2>
+			<div>
+				<form th:object="${product}" th:action="@{/product}" method="post">
+					<input type="hidden" th:field="*{id}"/>
+					<input type="hidden" th:field="*{version}"/>
+					<div>
+						<label>product Id : </label>
+						<div>
+							<input type="text" th:field="*{productId}" />
+						</div>
+					</div>
+					<div>
+						<label>Name : </label>
+						<div>
+							<input type="text" th:field="*{name}" />
+						</div>
+					</div>
+					<div>
+						<label>Price : </label>
+						<div>
+							<input type="text" th:field="*{price}" />
+						</div>
+					</div>
+					<div>
+						<button type="submit">submit</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>
